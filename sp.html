@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi Tiết Sản Phẩm - Thời Trang Yody</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header sẽ được JS tự động chèn vào đây -->
+
+    <main class="container-sp">
+        <div class="duong-dan-breadcrumb">
+            Trang chủ / <span style="font-weight: bold;">Chi tiết sản phẩm</span>
+        </div>
+        
+        <div class="layout-chi-tiet">
+            <div class="cot-anh">
+                <div class="danh-sach-anh-nho">
+                    <img id="thumb-trang" src="" class="active" alt="Màu Trắng">
+                    <img id="thumb-den" src="" alt="Màu Đen">
+                </div>
+                <div class="anh-chinh-wrapper">
+                    <img id="sp-anh" src="" alt="Ảnh sản phẩm">
+                </div>
+            </div>
+            
+            <div class="cot-thong-tin">
+                <div class="gia-ca-khu-vuc">
+                    <span id="sp-gia" class="gia-moi">0 VNĐ</span>
+                </div>
+                
+                <h2 id="sp-ten" class="ten-sp">Tên sản phẩm</h2>
+                
+                <div class="tieu-de-thuoc-tinh">Màu sắc:</div>
+                <div id="chon-mau" class="nhom-thuoc-tinh">
+                    <div class="nut-chon active">Trắng</div>
+                    <div class="nut-chon">Đen</div>
+                </div>
+
+                <div class="tieu-de-thuoc-tinh" style="display: flex; justify-content: space-between; max-width: 400px;">
+                    <span>Kích thước:</span> 
+                    <a href="#" id="nut-mo-size" style="color: #3b5998; font-weight: normal; font-size: 13px; text-decoration: none;">Hướng dẫn chọn size</a>
+                </div>
+                <div id="chon-size" class="nhom-thuoc-tinh">
+                    <div class="nut-chon active">XS</div>
+                    <div class="nut-chon">S</div>
+                    <div class="nut-chon">M</div>
+                    <div class="nut-chon">L</div>
+                    <div class="nut-chon">XL</div>
+                </div>
+                
+                <div style="margin-bottom: 15px; font-weight: bold; font-size: 14px;">YODY cam kết <span style="color: #28a745;">✔</span></div>
+                <div class="hop-cam-ket">
+                    <div class="item-cam-ket"><span>🔄</span><div>Không hài lòng, đổi trả trong <b>30 ngày</b><br><a href="#" style="color: #3b5998; font-size: 11px;">Xem chính sách ↗</a></div></div>
+                    <div class="item-cam-ket"><span>🚚</span><div>Giao trong 3-5 ngày và freeship đơn từ 498k</div></div>
+                    <div class="item-cam-ket"><span>🛡️</span><div>Cam kết bảo mật thông tin khách hàng</div></div>
+                    <div class="item-cam-ket"><span>💬</span><div>Cần tư vấn thêm? Chat ngay!</div></div>
+                </div>
+
+                <div class="hanh-dong-mua">
+                    <div class="chon-so-luong">
+                        <button id="nut-tru-sp">-</button>
+                        <input type="text" id="so-luong-sp" value="1" readonly>
+                        <button id="nut-cong-sp">+</button>
+                    </div>
+                    <button id="sp-nut-mua">Thêm vào giỏ 🛒</button>
+                </div>
+                
+                <div class="phan-mo-ta" id="khu-vuc-mo-ta">
+                    <h3>Chi tiết sản phẩm</h3>
+                    <div id="noi-dung-chi-tiet">
+                        <p style="color: #888;">Đang tải thông tin chi tiết...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer và Các cửa sổ nổi sẽ được JS tự động chèn vào đây -->
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giỏ Hàng Của Bạn - Thời Trang Bodoi</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header sẽ được JS tự động chèn vào đây -->
+
+    <main>
+        <div class="khu-vuc-thanh-toan">
+            <h2 class="tieu-de-gio-hang">GIỎ HÀNG CỦA BẠN</h2>
+            
+            <div class="thanh-tieu-de-gio">
+                <input type="checkbox" id="check-all" class="hop-checkbox" title="Chọn tất cả">
+                <span style="flex: 2; padding-left: 100px;">Sản phẩm</span>
+                <span style="flex: 1; text-align: center;">Đơn giá</span>
+                <span style="flex: 1; text-align: center;">Số lượng</span>
+                <span style="flex: 1; text-align: right;">Thành tiền</span>
+                <span style="flex: 0.5;"></span>
+            </div>
+
+            <div id="danh-sach-mua"></div>
+            
+            <div class="tong-ket-gio">
+                <span style="font-size: 22px; font-weight: bold; color: #333;">TỔNG CỘNG:</span>
+                <span style="font-size: 26px; font-weight: bold; color: #e30019;"><span id="tong-tien">0</span> VNĐ</span>
+            </div>
+            
+            <div class="khu-vuc-nut-mua">
+                <a href="index.html" class="nut-quay-lai">🔙 Tiếp tục mua sắm</a>
+                <button id="nut-thanh-toan" class="nut-thanh-toan-moi">💳 Thanh toán ngay</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer và Các cửa sổ nổi sẽ được JS tự động chèn vào đây -->
+    <script src="script.js"></script>
+</body>
+</html>

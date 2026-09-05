@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cửa Hàng Thời Trang - Bodoi</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header sẽ được JS tự động chèn vào đây -->
+
+    <!-- BĂNG CHUYỀN QUẢNG CÁO -->
+    <section style="position: relative; overflow: hidden;">
+        <div id="bang-chuyen" style="display: flex; transition: transform 0.5s ease-in-out; width: 100%;">
+            <div class="slide" onclick="document.getElementById('bo-suu-tap-1').scrollIntoView({behavior: 'smooth'})" style="min-width: 100%; height: 650px; background-image: url('km/km1.png'); background-size: cover; background-position: center; cursor: pointer;"></div>
+            <div class="slide" onclick="document.getElementById('bo-suu-tap-2').scrollIntoView({behavior: 'smooth'})" style="min-width: 100%; height: 650px; background-image: url('km/km2.png'); background-size: cover; background-position: center; cursor: pointer;"></div>
+            <div class="slide" onclick="document.getElementById('bo-suu-tap-3').scrollIntoView({behavior: 'smooth'})" style="min-width: 100%; height: 650px; background-image: url('km/km3.png'); background-size: cover; background-position: center; cursor: pointer;"></div>
+        </div>
+        <button id="nut-lui" style="position: absolute; top: 50%; left: 20px; transform: translateY(-50%); background-color: white; border: none; width: 45px; height: 45px; border-radius: 50%; font-size: 20px; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.15); color: #333; z-index: 10;">❮</button>
+        <button id="nut-toi" style="position: absolute; top: 50%; right: 20px; transform: translateY(-50%); background-color: white; border: none; width: 45px; height: 45px; border-radius: 50%; font-size: 20px; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.15); color: #333; z-index: 10;">❯</button>
+    </section>
+
+    <!-- DÒNG CAM KẾT -->
+    <div style="background-color: #fbf8f1; text-align: center; padding: 12px; font-size: 14px; color: #333; border-bottom: 1px solid #ddd;">
+        🔄 Không hài lòng, đổi trả trong 30 ngày <a href="#" style="color: #666; text-decoration: none; margin-left: 10px;">Xem chính sách ↗</a>
+    </div>
+
+    <!-- BỘ SƯU TẬP 1 -->
+    <div id="bo-suu-tap-1" class="phan-cach-khu-vuc"><h2>BỘ SƯU TẬP MỚI</h2></div>
+    <div style="max-width: 95%; margin: 0 auto 20px auto; padding: 0 20px; text-align: center; box-sizing: border-box;">
+        <img src="km/km4.png" alt="Banner Khuyến Mãi 4" style="width: 100%; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+    </div>
+    <main style="max-width: 95%; margin-left: auto; margin-right: auto; padding: 0 20px; box-sizing: border-box;">
+        <!-- CHỈ CẦN ĐỂ KHUNG RỖNG Ở ĐÂY LÀ ĐƯỢC! -->
+        <div class="danh-sach-san-pham" id="khu-vuc-sp-1"></div>
+    </main>
+
+    <!-- BỘ SƯU TẬP 2 -->
+    <div id="bo-suu-tap-2" class="phan-cach-khu-vuc"><h2>Ưu đãi tựu trường</h2></div>
+    <div style="max-width: 95%; margin: 0 auto 20px auto; padding: 0 20px; text-align: center; box-sizing: border-box;">
+        <img src="km/km5.png" alt="Banner Khuyến Mãi 5" style="width: 100%; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+    </div>
+    <main style="max-width: 95%; margin-left: auto; margin-right: auto; padding: 0 20px; box-sizing: border-box;">
+        <!-- CHỈ CẦN ĐỂ KHUNG RỖNG Ở ĐÂY LÀ ĐƯỢC! -->
+        <div class="danh-sach-san-pham" id="khu-vuc-sp-2"></div>
+    </main>
+
+    <!-- BỘ SƯU TẬP 3 -->
+    <div id="bo-suu-tap-3" class="phan-cach-khu-vuc"><h2>Thoáng mát - Năng động</h2></div>
+    <div style="max-width: 95%; margin: 0 auto 20px auto; padding: 0 20px; text-align: center; box-sizing: border-box;">
+        <img src="km/km6.png" alt="Banner Khuyến Mãi 6" style="width: 100%; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+    </div>
+    <main style="max-width: 95%; margin-left: auto; margin-right: auto; padding: 0 20px; box-sizing: border-box; margin-bottom: 50px;">
+        <!-- CHỈ CẦN ĐỂ KHUNG RỖNG Ở ĐÂY LÀ ĐƯỢC! -->
+        <div class="danh-sach-san-pham" id="khu-vuc-sp-3"></div>
+    </main>
+
+    <!-- Footer và Các cửa sổ nổi sẽ được JS tự động chèn vào đây -->
+    <script src="script.js"></script>
+</body>
+</html>

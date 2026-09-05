@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thanh Toán - Thời Trang Bodoi</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header sẽ được JS tự động chèn vào đây -->
+
+    <main class="layout-thanh-toan">
+        <!-- Cột Trái: Điền thông tin -->
+        <div class="khung-thong-tin">
+            <h2 class="tieu-de-form">📝 Thông Tin Giao Hàng</h2>
+            <input type="text" id="ten-khach-hang" class="form-nhap" placeholder="Họ và tên người nhận (*)">
+            <input type="text" id="sdt-khach-hang" class="form-nhap" placeholder="Số điện thoại (*)">
+            <input type="text" id="dia-chi-khach-hang" class="form-nhap" placeholder="Địa chỉ nhận hàng (Số nhà, Phường/Xã, Quận/Huyện, Tỉnh/TP) (*)">
+            <textarea class="form-nhap" rows="3" placeholder="Ghi chú thêm cho shipper (Không bắt buộc)"></textarea>
+
+            <h2 class="tieu-de-form" style="margin-top: 30px;">💳 Phương Thức Thanh Toán</h2>
+            <label class="phuong-thuc-tt">
+                <input type="radio" name="pttt" checked style="accent-color: #003366;"> 
+                <b>Thanh toán khi nhận hàng (COD)</b>
+            </label>
+            <label class="phuong-thuc-tt">
+                <input type="radio" name="pttt" style="accent-color: #003366;"> 
+                <b>Chuyển khoản qua Ngân hàng (Mã QR)</b>
+            </label>
+        </div>
+
+        <!-- Cột Phải: Hóa đơn -->
+        <div class="khung-don-hang">
+            <h2 class="tieu-de-form">🛒 Đơn Hàng Của Bạn</h2>
+            
+            <div id="danh-sach-thanh-toan"></div>
+            
+            <div style="display: flex; justify-content: space-between; margin-top: 20px; color: #555;">
+                <span>Phí vận chuyển:</span>
+                <span>Miễn phí</span>
+            </div>
+
+            <div class="dong-tong-tien">
+                <span>Tổng thanh toán:</span>
+                <span style="color: #e30019;"><span id="tong-tien-thanh-toan">0</span> đ</span>
+            </div>
+
+            <button id="nut-xac-nhan-dat-hang">ĐẶT HÀNG NGAY</button>
+            <div style="text-align: center; margin-top: 15px;">
+                <a href="giohang.html" style="color: #3b5998; font-size: 14px; text-decoration: none;">← Quay lại giỏ hàng</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer và Các cửa sổ nổi sẽ được JS tự động chèn vào đây -->
+    <script src="script.js"></script>
+</body>
+</html>
