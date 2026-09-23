@@ -18,7 +18,7 @@ const htmlHeader = `
     
     <div style="flex: 1; text-align: center;">
         <a href="index.html" style="text-decoration: none;">
-            <h1 style="color: #fcaf17; margin: 0; font-size: 38px; cursor: pointer; display: inline-block; font-family: Arial, sans-serif; font-weight: bold;">bodoi</h1>
+            <h1 style="color: #fcaf17; margin: 0; font-size: 38px; cursor: pointer; display: inline-block; font-family: Arial, sans-serif; font-weight: bold;">Fashion Shop</h1>
         </a>
     </div>
 
@@ -88,10 +88,10 @@ const htmlFooterVaModals = `
 <div id="modal-xac-nhan-xoa" class="cua-so-noi"><div class="noi-dung-cua-so" style="text-align: center; width: 320px;"><h3 style="color: #e30019; margin-top: 0; font-size: 24px;">⚠️ Xác Nhận</h3><p id="noi-dung-xac-nhan" style="margin: 20px 0; color: #333; line-height: 1.5; font-size: 16px;"></p><div style="display: flex; gap: 10px; justify-content: center; margin-top: 25px;"><button id="nut-huy-xoa" style="background-color: #f0f0f0; color: #333; flex: 1; border: none; padding: 12px; border-radius: 8px; cursor: pointer; font-weight: bold;">Hủy</button><button id="nut-dong-y-xoa" style="background-color: #e30019; color: white; flex: 1; border: none; padding: 12px; border-radius: 8px; cursor: pointer; font-weight: bold;">Xóa ngay</button></div></div></div>
 <footer>
     <div class="footer-container">
-        <div class="footer-cot"><h4>Về Cửa Hàng BODOI</h4><p>Với sứ mệnh "Đưa sản phẩm thời trang Việt có chất liệu tốt, dịch vụ tốt đến tận tay khách hàng", chúng tôi luôn nỗ lực không ngừng từng ngày.</p></div>
+        <div class="footer-cot"><h4>Về Cửa Hàng Fashion Shop</h4><p>Với sứ mệnh "Đưa sản phẩm thời trang Việt có chất liệu tốt, dịch vụ tốt đến tận tay khách hàng", chúng tôi luôn nỗ lực không ngừng từng ngày.</p></div>
         <div class="footer-cot"><h4>Hỗ Trợ Khách Hàng</h4><a href="#" class="nut-mo-size-footer">Hướng dẫn chọn size</a><a href="#">Chính sách khách hàng</a><a href="#">Đổi trả 30 ngày</a></div>
         <div class="footer-cot"><h4>Liên Hệ</h4><p>📍 Hà Đông, Hà Nội</p><p>📞 0987.654.321</p></div>
-    </div><div class="footer-bottom">&copy; 2026 Cửa Hàng Thời Trang BODOI. Thiết kế độc quyền.</div>
+    </div><div class="footer-bottom">&copy; 2026 Cửa Hàng Thời Trang Fashion Shop. Thiết kế độc quyền.</div>
 </footer>
 `;
 document.body.insertAdjacentHTML('afterbegin', htmlHeader);
