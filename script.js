@@ -1,11 +1,52 @@
 // =========================================================================
-// BỘ NÃO VÀ TRÍ NHỚ (BẢN TỐI ƯU HÓA HOÀN HẢO - DATA-DRIVEN RENDERING)
+// PHẦN 1: CƠ SỞ DỮ LIỆU (DATABASE) - CHỈNH SỬA SẢN PHẨM Ở ĐÂY
 // =========================================================================
 
-// --- 1. TỰ ĐỘNG VẼ HEADER, MEGA MENU, FOOTER VÀ MODAL ---
+let tuDienMauSac = { 
+    "ao1": ["trắng", "đen"], "ao2": ["trắng", "xanh"], "ao3": ["be", "xanh"], "ao4": ["be", "xanh"], "ao5": ["trắng", "xanh"], 
+    "ao6": ["hồng", "trắng"], "ao7": ["cam", "xanh"], "ao8": ["trắng hồng", "trắng xanh"], "ao9": ["trắng", "xanh"], 
+    "ao10": ["hồng", "tím"], "ao11": ["be", "tím"], "ao12": ["đen", "xanh"], "ao13": ["be", "đỏ"], "ao14": ["đen", "đỏ"], 
+    "ao15": ["trắng", "xanh"], "macDinh": ["màu 1", "màu 2"] 
+};
+
+let khoSanPham = [
+    // boSuuTap: 1
+    { anh: "quần áo/ao1.png", ten: "Áo Polo Nữ Thể Thao", gia: 200000, giamGia: 0, tonKho: 150, boSuuTap: 1 },
+    { anh: "quần áo/ao2.png", ten: "Áo Polo Thể Thao Nam", gia: 250000, giamGia: 10, tonKho: 200, boSuuTap: 1 },
+    { anh: "quần áo/ao3.png", ten: "Áo Polo Nữ Dáng Ngắn", gia: 300000, giamGia: 0, tonKho: 50, boSuuTap: 1 },
+    { anh: "quần áo/ao4.png", ten: "Áo Polo Nam Cổ V", gia: 280000, giamGia: 0, tonKho: 80, boSuuTap: 1 },
+    { anh: "quần áo/ao5.png", ten: "Áo Polo Nam Mắt Chim Cơ Bản", gia: 320000, giamGia: 20, tonKho: 120, boSuuTap: 1 },
+    
+    // boSuuTap: 2
+    { anh: "quần áo/ao6.png", ten: "Áo Thun Thể Thao Nữ", gia: 150000, giamGia: 50, tonKho: 300, boSuuTap: 2 },
+    { anh: "quần áo/ao7.png", ten: "Áo Polo Nữ Ponte Roma Cool Dáng Suông", gia: 180000, giamGia: 50, tonKho: 45, boSuuTap: 2 },
+    { anh: "quần áo/ao8.png", ten: "Áo Polo Thể Thao Nữ Ponte Roma Cool", gia: 190000, giamGia: 50, tonKho: 90, boSuuTap: 2 },
+    { anh: "quần áo/ao9.png", ten: "Áo Polo Nữ Ponte Roma Cool phối lưới", gia: 220000, giamGia: 50, tonKho: 60, boSuuTap: 2 },
+    { anh: "quần áo/ao10.png", ten: "Áo Polo Nữ waffle co giãn dây dệt vai", gia: 350000, giamGia: 50, tonKho: 10, boSuuTap: 2 },
+    
+    // boSuuTap: 3
+    { anh: "quần áo/ao11.png", ten: "Áo Thun Nữ Dream Team", gia: 380000, giamGia: 0, tonKho: 250, boSuuTap: 3 },
+    { anh: "quần áo/ao12.png", ten: "Áo Thun Cổ Tim Dream Team", gia: 320000, giamGia: 0, tonKho: 180, boSuuTap: 3 },
+    { anh: "quần áo/ao13.png", ten: "Áo Thun Nam Dream Team", gia: 450000, giamGia: 0, tonKho: 75, boSuuTap: 3 },
+    { anh: "quần áo/ao14.png", ten: "Áo Thun Cổ Tim Dream Team", gia: 280000, giamGia: 0, tonKho: 400, boSuuTap: 3 },
+    { anh: "quần áo/ao15.png", ten: "Áo Thun Nam Dream Team", gia: 499000, giamGia: 0, tonKho: 25, boSuuTap: 3 }
+];
+
+// TỰ ĐỘNG TÍNH TỒN KHO THỰC TẾ DỰA VÀO LỊCH SỬ ĐÃ BÁN
+let hangDaBan = JSON.parse(localStorage.getItem('daBan_FashionShop') || "{}");
+khoSanPham.forEach(sp => {
+    let daBan = hangDaBan[sp.ten] || 0;
+    sp.tonKhoHienTai = sp.tonKho - daBan;
+    if (sp.tonKhoHienTai < 0) sp.tonKhoHienTai = 0;
+});
+
+
+// =========================================================================
+// PHẦN 2: TỰ ĐỘNG VẼ GIAO DIỆN (HEADER, MEGA MENU, FOOTER, MODALS)
+// =========================================================================
+
 const htmlHeader = `
 <header style="background-color: white; color: #111; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 1002; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
-    
     <div style="flex: 1; display: flex; align-items: center; gap: 20px;">
         <button id="nut-danh-muc" style="background: #f4f4f4; border: 1px solid #eee; font-size: 16px; cursor: pointer; color: #111; font-weight: bold; display: flex; align-items: center; gap: 10px; padding: 10px 20px; border-radius: 25px; transition: 0.2s;">
             <span style="font-size: 22px; line-height: 1;">☰</span> DANH MỤC
@@ -34,7 +75,7 @@ const htmlHeader = `
                 <span onclick="window.location.href='timkiem.html?timkiem=' + encodeURIComponent('CỬA HÀNG')">🏪 CỬA HÀNG</span>
                 <span onclick="window.location.href='timkiem.html?timkiem=' + encodeURIComponent('TIN TỨC')">📰 TIN TỨC</span>
                 <span onclick="window.location.href='index.html#bo-suu-tap-1'; document.getElementById('mega-menu').style.display='none'; document.getElementById('mega-menu-backdrop').style.display='none';">✨ MỚI VỀ</span>
-                <span style="color: #e30019; background: #ffe6e8;" onclick="window.location.href='index.html#bo-suu-tap-2'; document.getElementById('mega-menu').style.display='none'; document.getElementById('mega-menu-backdrop').style.display='none';">🔥 ƯU ĐÃI -50%</span>
+                <span style="color: #e30019; background: #ffe6e8;" onclick="window.location.href='index.html#bo-suu-tap-2'; document.getElementById('mega-menu').style.display='none'; document.getElementById('mega-menu-backdrop').style.display='none';">🔥 ƯU ĐÃI KHỦNG</span>
                 <span onclick="window.location.href='index.html#bo-suu-tap-3'; document.getElementById('mega-menu').style.display='none'; document.getElementById('mega-menu-backdrop').style.display='none';">👕 T-SHIRT</span>
             </div>
             
@@ -47,7 +88,6 @@ const htmlHeader = `
                     <div class="mega-item" onclick="window.location.href='timkiem.html?timkiem=' + encodeURIComponent('Quần nam')"><div class="mega-item-trai"><img class="mega-item-icon" src="ảnh danh mục/quần nam.png"> Quần nam</div><span>></span></div>
                     <div class="mega-item" onclick="window.location.href='timkiem.html?timkiem=' + encodeURIComponent('Đồ thể thao nam')"><div class="mega-item-trai"><img class="mega-item-icon" src="ảnh danh mục/đồ thể thao nam.png"> Đồ thể thao nam</div><span>></span></div>
                 </div>
-                
                 <div class="mega-col">
                     <h3>NỮ</h3>
                     <div class="mega-item" onclick="window.location.href='timkiem.html?timkiem=' + encodeURIComponent('Áo chống nắng nữ')"><div class="mega-item-trai"><img class="mega-item-icon" src="ảnh danh mục/áo chống nắng nữ.png"> Áo chống nắng nữ</div><span>></span></div>
@@ -56,7 +96,6 @@ const htmlHeader = `
                     <div class="mega-item" onclick="window.location.href='timkiem.html?timkiem=' + encodeURIComponent('Quần nữ')"><div class="mega-item-trai"><img class="mega-item-icon" src="ảnh danh mục/quần nữ.png"> Quần nữ</div><span>></span></div>
                     <div class="mega-item" onclick="window.location.href='timkiem.html?timkiem=' + encodeURIComponent('Đầm và chân váy nữ')"><div class="mega-item-trai"><img class="mega-item-icon" src="ảnh danh mục/đầm và chân váy nữ.png"> Đầm và chân váy nữ</div><span>></span></div>
                 </div>
-                
                 <div class="mega-col">
                     <h3>TRẺ EM</h3>
                     <div class="mega-item" onclick="window.location.href='timkiem.html?timkiem=' + encodeURIComponent('Áo khoác trẻ em')"><div class="mega-item-trai"><img class="mega-item-icon" src="ảnh danh mục/áo khoác trẻ em.png"> Áo khoác trẻ em</div><span>></span></div>
@@ -65,7 +104,6 @@ const htmlHeader = `
                     <div class="mega-item" onclick="window.location.href='timkiem.html?timkiem=' + encodeURIComponent('Đồ bộ trẻ em')"><div class="mega-item-trai"><img class="mega-item-icon" src="ảnh danh mục/đồ bộ trẻ em.png"> Đồ bộ trẻ em</div><span>></span></div>
                     <div class="mega-item" onclick="window.location.href='timkiem.html?timkiem=' + encodeURIComponent('Phụ kiện trẻ em')"><div class="mega-item-trai"><img class="mega-item-icon" src="ảnh danh mục/phụ kiện trẻ em.png"> Phụ kiện trẻ em</div><span>></span></div>
                 </div>
-                
                 <div class="mega-col">
                     <h3 style="border-bottom: none;">BỘ SƯU TẬP</h3>
                     <div class="mega-col-banners">
@@ -83,12 +121,44 @@ const htmlHeader = `
 `;
 
 const htmlFooterVaModals = `
+<!-- BẢNG KÍCH THƯỚC -->
 <div id="modal-bang-size" class="cua-so-noi"><div class="noi-dung-cua-so" style="width: 550px; max-width: 95%; padding: 0; overflow: hidden; border-radius: 12px;"><div style="display: flex; justify-content: space-between; align-items: center; padding: 20px; border-bottom: 1px solid #eee;"><h3 style="margin: 0; font-size: 18px; color: #333;">Bảng kích thước</h3><span id="nut-dong-size" class="nut-dong" style="margin: 0; float: none; line-height: 1;">&times;</span></div><div class="bang-size" style="padding: 20px; max-height: 70vh; overflow-y: auto;"><div style="background-color: #fbf8f1; padding: 12px; border-radius: 8px; font-size: 14px; margin-bottom: 20px; display: flex; align-items: center; gap: 10px;"><span>🔄</span><span>Không hài lòng, <b>đổi trả trong 30 ngày</b></span></div><div style="display: flex; background: #f4f4f4; border-radius: 8px; padding: 5px; margin-bottom: 20px;"><div class="tab-size-btn active" data-tab="tab-nam">Nam</div><div class="tab-size-btn" data-tab="tab-nu">Nữ</div><div class="tab-size-btn" data-tab="tab-tre-em">Trẻ em</div><div class="tab-size-btn" data-tab="tab-phu-kien">Phụ kiện</div></div><div id="tab-nam" class="tab-noi-dung" style="display: block;"><h4 style="margin: 0 0 15px 0; font-size: 16px; color: #111;">Áo Nam</h4><table><thead><tr><th>Kích thước</th><th>S</th><th>M</th><th>L</th><th>XL</th></tr></thead><tbody><tr><td>Chiều cao</td><td>160-165</td><td>160-165</td><td>166-172</td><td>172-177</td></tr><tr><td>Cân nặng</td><td>50-54</td><td>55-61</td><td>62-68</td><td>69-75</td></tr><tr><td>Rộng Vai</td><td>41</td><td>42</td><td>43,5</td><td>45</td></tr></tbody></table></div><div id="tab-nu" class="tab-noi-dung" style="display: none;"><h4 style="margin: 0 0 15px 0; font-size: 16px; color: #111;">Áo Nữ</h4><table><thead><tr><th>Kích thước</th><th>S</th><th>M</th><th>L</th><th>XL</th></tr></thead><tbody><tr><td>Chiều cao</td><td>150-155</td><td>156-160</td><td>160-164</td><td>165-170</td></tr><tr><td>Cân nặng</td><td>43-46</td><td>46-53</td><td>53-57</td><td>58-65</td></tr><tr><td>Vòng ngực</td><td>78-82</td><td>84-88</td><td>88-92</td><td>93-97</td></tr></tbody></table></div><div id="tab-tre-em" class="tab-noi-dung" style="display: none;"><h4 style="margin: 0 0 15px 0; font-size: 16px; color: #111;">Quần Áo Trẻ Em</h4><table><thead><tr><th>Độ tuổi</th><th>2-3T</th><th>4-5T</th><th>6-7T</th><th>8-9T</th></tr></thead><tbody><tr><td>Chiều cao</td><td>90-98</td><td>100-110</td><td>112-122</td><td>125-130</td></tr><tr><td>Cân nặng</td><td>12-14</td><td>15-18</td><td>19-22</td><td>23-26</td></tr></tbody></table></div><div id="tab-phu-kien" class="tab-noi-dung" style="display: none;"><h4 style="margin: 0 0 15px 0; font-size: 16px; color: #111;">Phụ Kiện (Mũ, Tất...)</h4><div style="padding: 20px; text-align: center; border: 1px dashed #ccc; border-radius: 8px; color: #555;"><p>Sản phẩm Freesize. Điều chỉnh dễ dàng qua quai mũ hoặc độ giãn vải.</p></div></div></div></div></div>
-<div id="modal-tai-khoan" class="cua-so-noi"><div class="noi-dung-cua-so"><span id="nut-dong-modal" class="nut-dong">&times;</span><h2 style="text-align: center; color: #003366; margin-top: 0;">Khách Hàng</h2><div id="form-dang-nhap" style="display: flex; flex-direction: column;"><input type="text" id="ten-dang-nhap" placeholder="Tên tài khoản"><input type="password" id="mat-khau" placeholder="Mật khẩu"><div style="display: flex; gap: 10px; margin-top: 10px;"><button id="nut-dang-ky" style="flex: 1;">Đăng ký</button><button id="nut-dang-nhap" style="flex: 1;">Đăng nhập</button></div></div><div id="thong-tin-nguoi-dung" style="display: none; text-align: center;"><p style="font-size: 18px;">Xin chào, <b id="ten-nguoi-dung" style="color: #e30019;">Khách</b>!</p><button id="nut-dang-xuat" style="background-color: #6c757d; width: 100%; border: none; padding: 14px; color: white; border-radius: 8px; cursor: pointer;">Đăng xuất</button></div></div></div>
+
+<!-- TÀI KHOẢN VÀ LỊCH SỬ GIAO DỊCH -->
+<div id="modal-tai-khoan" class="cua-so-noi">
+    <div class="noi-dung-cua-so">
+        <span id="nut-dong-modal" class="nut-dong">&times;</span>
+        <h2 style="text-align: center; color: #003366; margin-top: 0;">Khách Hàng</h2>
+        <div id="form-dang-nhap" style="display: flex; flex-direction: column;">
+            <input type="text" id="ten-dang-nhap" placeholder="Tên tài khoản">
+            <input type="password" id="mat-khau" placeholder="Mật khẩu">
+            <div style="display: flex; gap: 10px; margin-top: 10px;">
+                <button id="nut-dang-ky" style="flex: 1;">Đăng ký</button>
+                <button id="nut-dang-nhap" style="flex: 1;">Đăng nhập</button>
+            </div>
+        </div>
+        <div id="thong-tin-nguoi-dung" style="display: none; text-align: center;">
+            <p style="font-size: 18px;">Xin chào, <b id="ten-nguoi-dung" style="color: #e30019;">Khách</b>!</p>
+            <button id="nut-xem-lich-su" style="background-color: #28a745; width: 100%; border: none; padding: 14px; color: white; border-radius: 8px; cursor: pointer; margin-bottom: 10px; font-weight: bold;">Lịch sử giao dịch</button>
+            <button id="nut-dang-xuat" style="background-color: #6c757d; width: 100%; border: none; padding: 14px; color: white; border-radius: 8px; cursor: pointer;">Đăng xuất</button>
+        </div>
+    </div>
+</div>
+
+<!-- CỬA SỔ LỊCH SỬ -->
+<div id="modal-lich-su" class="cua-so-noi">
+    <div class="noi-dung-cua-so" style="width: 500px; max-width: 95%;">
+        <span id="nut-dong-lich-su" class="nut-dong">&times;</span>
+        <h2 style="text-align: center; color: #003366; margin-top: 0;">Lịch Sử Đơn Hàng</h2>
+        <div id="danh-sach-lich-su" style="max-height: 60vh; overflow-y: auto; margin-top: 20px;"></div>
+    </div>
+</div>
+
 <div id="modal-xac-nhan-xoa" class="cua-so-noi"><div class="noi-dung-cua-so" style="text-align: center; width: 320px;"><h3 style="color: #e30019; margin-top: 0; font-size: 24px;">⚠️ Xác Nhận</h3><p id="noi-dung-xac-nhan" style="margin: 20px 0; color: #333; line-height: 1.5; font-size: 16px;"></p><div style="display: flex; gap: 10px; justify-content: center; margin-top: 25px;"><button id="nut-huy-xoa" style="background-color: #f0f0f0; color: #333; flex: 1; border: none; padding: 12px; border-radius: 8px; cursor: pointer; font-weight: bold;">Hủy</button><button id="nut-dong-y-xoa" style="background-color: #e30019; color: white; flex: 1; border: none; padding: 12px; border-radius: 8px; cursor: pointer; font-weight: bold;">Xóa ngay</button></div></div></div>
+
 <footer>
     <div class="footer-container">
-        <div class="footer-cot"><h4>Về Cửa Hàng Fashion Shop</h4><p>Với sứ mệnh "Đưa sản phẩm thời trang Việt có chất liệu tốt, dịch vụ tốt đến tận tay khách hàng", chúng tôi luôn nỗ lực không ngừng từng ngày.</p></div>
+        <div class="footer-cot"><h4>Về Fashion Shop</h4><p>Với sứ mệnh "Đưa sản phẩm thời trang Việt có chất liệu tốt, dịch vụ tốt đến tận tay khách hàng", chúng tôi luôn nỗ lực không ngừng từng ngày.</p></div>
         <div class="footer-cot"><h4>Hỗ Trợ Khách Hàng</h4><a href="#" class="nut-mo-size-footer">Hướng dẫn chọn size</a><a href="#">Chính sách khách hàng</a><a href="#">Đổi trả 30 ngày</a></div>
         <div class="footer-cot"><h4>Liên Hệ</h4><p>📍 Hà Đông, Hà Nội</p><p>📞 0987.654.321</p></div>
     </div><div class="footer-bottom">&copy; 2026 Cửa Hàng Thời Trang Fashion Shop. Thiết kế độc quyền.</div>
@@ -98,78 +168,45 @@ document.body.insertAdjacentHTML('afterbegin', htmlHeader);
 document.body.insertAdjacentHTML('beforeend', htmlFooterVaModals);
 
 
-// --- 2. DỮ LIỆU SẢN PHẨM: "NGUỒN CHÂN LÝ DUY NHẤT" (SSOT) ---
-// Nếu em muốn thêm một chiếc áo mới, chỉ cần gõ thêm 1 dòng vào đây!
-let tuDienMauSac = { "ao1": ["trắng", "đen"], "ao2": ["trắng", "xanh"], "ao3": ["be", "xanh"], "ao4": ["be", "xanh"], "ao5": ["trắng", "xanh"], "ao6": ["hồng", "trắng"], "ao7": ["cam", "xanh"], "ao8": ["trắng hồng", "trắng xanh"], "ao9": ["trắng", "xanh"], "ao10": ["hồng", "tím"], "ao11": ["be", "tím"], "ao12": ["đen", "xanh"], "ao13": ["be", "đỏ"], "ao14": ["đen", "đỏ"], "ao15": ["trắng", "xanh"], "macDinh": ["màu 1", "màu 2"] };
+// =========================================================================
+// PHẦN 3: LÕI LOGIC HOẠT ĐỘNG THƯƠNG MẠI ĐIỆN TỬ
+// =========================================================================
 
-let khoSanPham = [
-    // boSuuTap: 1 -> Hiện ở khu vực BỘ SƯU TẬP MỚI
-    { anh: "quần áo/ao1.png", ten: "Áo Polo Nữ Thể Thao", gia: 200000, giam50: false, boSuuTap: 1 },
-    { anh: "quần áo/ao2.png", ten: "Áo Polo Thể Thao Nam", gia: 250000, giam50: false, boSuuTap: 1 },
-    { anh: "quần áo/ao3.png", ten: "Áo Polo Nữ Dáng Ngắn", gia: 300000, giam50: false, boSuuTap: 1 },
-    { anh: "quần áo/ao4.png", ten: "Áo Polo Nam Cổ V", gia: 280000, giam50: false, boSuuTap: 1 },
-    { anh: "quần áo/ao5.png", ten: "Áo Polo Nam Mắt Chim Cơ Bản", gia: 320000, giam50: false, boSuuTap: 1 },
-    
-    // boSuuTap: 2 -> Hiện ở khu vực ƯU ĐÃI TỰU TRƯỜNG
-    { anh: "quần áo/ao6.png", ten: "Áo Thun Thể Thao Nữ", gia: 150000, giam50: true, boSuuTap: 2 },
-    { anh: "quần áo/ao7.png", ten: "Áo Polo Nữ Ponte Roma Cool Dáng Suông", gia: 180000, giam50: true, boSuuTap: 2 },
-    { anh: "quần áo/ao8.png", ten: "Áo Polo Thể Thao Nữ Ponte Roma Cool", gia: 190000, giam50: true, boSuuTap: 2 },
-    { anh: "quần áo/ao9.png", ten: "Áo Polo Nữ Ponte Roma Cool phối lưới", gia: 220000, giam50: true, boSuuTap: 2 },
-    { anh: "quần áo/ao10.png", ten: "Áo Polo Nữ waffle co giãn dây dệt vai", gia: 350000, giam50: true, boSuuTap: 2 },
-    
-    // boSuuTap: 3 -> Hiện ở khu vực THOÁNG MÁT NĂNG ĐỘNG
-    { anh: "quần áo/ao11.png", ten: "Áo Thun Nữ Dream Team", gia: 380000, giam50: false, boSuuTap: 3 },
-    { anh: "quần áo/ao12.png", ten: "Áo Thun Cổ Tim Dream Team", gia: 320000, giam50: false, boSuuTap: 3 },
-    { anh: "quần áo/ao13.png", ten: "Áo Thun Nam Dream Team", gia: 450000, giam50: false, boSuuTap: 3 },
-    { anh: "quần áo/ao14.png", ten: "Áo Thun Cổ Tim Dream Team", gia: 280000, giam50: false, boSuuTap: 3 },
-    { anh: "quần áo/ao15.png", ten: "Áo Thun Nam Dream Team", gia: 499000, giam50: false, boSuuTap: 3 }
-];
-
-
-// --- 3. AUTO RENDER: TỰ ĐỘNG XUẤT BẢN SẢN PHẨM LÊN TRANG CHỦ ---
+// --- 3.1. AUTO RENDER: TỰ ĐỘNG XUẤT BẢN SẢN PHẨM LÊN TRANG CHỦ ---
 let khuVucSP1 = document.getElementById('khu-vuc-sp-1');
 let khuVucSP2 = document.getElementById('khu-vuc-sp-2');
 let khuVucSP3 = document.getElementById('khu-vuc-sp-3');
 
-// Nếu đang đứng ở trang chủ thì tiến hành "bày hàng"
 if (khuVucSP1 || khuVucSP2 || khuVucSP3) {
     khoSanPham.forEach(function(sp) {
-        let theGiaHTML = "";
-        let giaTruyenVao = sp.gia; // Giá sẽ truyền sang trang chi tiết
+        let theGiaHTML = ""; let giaTruyenVao = sp.gia; 
 
-        if (sp.giam50) {
-            let giaGiam = sp.gia / 2;
+        if (sp.giamGia > 0) {
+            let giaGiam = sp.gia * (1 - sp.giamGia / 100);
             giaTruyenVao = giaGiam;
-            theGiaHTML = `
-                <div class="khung-gia">
-                    <span style="color: #e30019;">${giaGiam.toLocaleString('vi-VN')} đ</span>
-                    <span class="gia-goc">${sp.gia.toLocaleString('vi-VN')} đ</span>
-                    <span class="nhan-giam-gia">-50%</span>
-                </div>
-            `;
+            theGiaHTML = `<div class="khung-gia"><span style="color: #e30019;">${giaGiam.toLocaleString('vi-VN')} đ</span><span class="gia-goc">${sp.gia.toLocaleString('vi-VN')} đ</span><span class="nhan-giam-gia">-${sp.giamGia}%</span></div>`;
         } else {
             theGiaHTML = `<p>${sp.gia.toLocaleString('vi-VN')} VNĐ</p>`;
         }
 
-        // Tự động đóng gói HTML cho 1 cái áo
+        let theTonKho = `<div class="the-ton-kho">Còn lại: <b>${sp.tonKhoHienTai}</b> sản phẩm</div>`;
+
         let htmlSP = `
             <div class="hop-san-pham">
                 <img src="${sp.anh}" alt="${sp.ten}" onclick="event.stopPropagation(); window.location.href='sp.html?ten=${encodeURIComponent(sp.ten)}&gia=${giaTruyenVao}&anh=${encodeURIComponent(sp.anh)}'">
                 <h3>${sp.ten}</h3>
                 ${theGiaHTML}
+                ${theTonKho}
                 <button class="nut-mua-hang" onclick="event.stopPropagation(); window.location.href='sp.html?ten=${encodeURIComponent(sp.ten)}&gia=${giaTruyenVao}&anh=${encodeURIComponent(sp.anh)}'">Chi tiết sản phẩm</button>
             </div>
         `;
-
-        // Xem áo này thuộc bộ sưu tập nào thì nhét vào hộp đó
         if (sp.boSuuTap === 1 && khuVucSP1) khuVucSP1.innerHTML += htmlSP;
         else if (sp.boSuuTap === 2 && khuVucSP2) khuVucSP2.innerHTML += htmlSP;
         else if (sp.boSuuTap === 3 && khuVucSP3) khuVucSP3.innerHTML += htmlSP;
     });
 }
 
-
-// --- 4. LOGIC ĐÓNG MỞ CÁC MODALS (MEGA MENU, ĐĂNG NHẬP, BẢNG SIZE) ---
+// --- 3.2. ĐÓNG MỞ MODALS & SỬA LỖI Z-INDEX CHO MEGA MENU ---
 let nutDanhMuc = document.getElementById('nut-danh-muc'); let megaMenu = document.getElementById('mega-menu'); let nutDongMega = document.getElementById('nut-dong-mega'); let megaBackdrop = document.getElementById('mega-menu-backdrop');
 if (nutDanhMuc != null) { nutDanhMuc.onclick = function() { megaMenu.style.display = "block"; megaBackdrop.style.display = "block"; } }
 if (nutDongMega != null) { nutDongMega.onclick = function() { megaMenu.style.display = "none"; megaBackdrop.style.display = "none"; } }
@@ -178,9 +215,28 @@ if (megaBackdrop != null) { megaBackdrop.onclick = function() { megaMenu.style.d
 let cuaSoTaiKhoan = document.getElementById('modal-tai-khoan'); let nutMoCuaSo = document.getElementById('nut-mo-modal-tai-khoan'); let nutDongCuaSo = document.getElementById('nut-dong-modal');
 let cuaSoXacNhan = document.getElementById('modal-xac-nhan-xoa'); let nutHuyXoa = document.getElementById('nut-huy-xoa'); let nutDongYXoa = document.getElementById('nut-dong-y-xoa'); let dongChuXacNhan = document.getElementById('noi-dung-xac-nhan');
 let modalSize = document.getElementById('modal-bang-size'); let nutDongSize = document.getElementById('nut-dong-size'); let cacNutMoSize = document.querySelectorAll('#nut-mo-size, .nut-mo-size-footer');
+let modalLichSu = document.getElementById('modal-lich-su'); let nutXemLichSu = document.getElementById('nut-xem-lich-su'); let nutDongLichSu = document.getElementById('nut-dong-lich-su');
 
-if (nutMoCuaSo != null) nutMoCuaSo.onclick = function() { cuaSoTaiKhoan.style.display = "block"; }
+// Bấm đăng nhập sẽ tự đóng Mega Menu
+if (nutMoCuaSo != null) { 
+    nutMoCuaSo.onclick = function() { 
+        if (megaMenu) megaMenu.style.display = "none";
+        if (megaBackdrop) megaBackdrop.style.display = "none";
+        cuaSoTaiKhoan.style.display = "block"; 
+    } 
+}
 if (nutDongCuaSo != null) nutDongCuaSo.onclick = function() { cuaSoTaiKhoan.style.display = "none"; }
+
+// Bật Lịch sử giao dịch
+if (nutXemLichSu != null) {
+    nutXemLichSu.onclick = function() {
+        cuaSoTaiKhoan.style.display = "none"; 
+        modalLichSu.style.display = "block"; 
+        veBangLichSu();
+    }
+}
+if (nutDongLichSu != null) nutDongLichSu.onclick = function() { modalLichSu.style.display = "none"; }
+
 cacNutMoSize.forEach(nut => { nut.onclick = function(e) { e.preventDefault(); if (modalSize != null) modalSize.style.display = "block"; }});
 if (nutDongSize != null) nutDongSize.onclick = function() { if (modalSize != null) modalSize.style.display = "none"; }
 
@@ -188,13 +244,13 @@ window.onclick = function(suKien) {
     if (cuaSoTaiKhoan != null && suKien.target == cuaSoTaiKhoan) cuaSoTaiKhoan.style.display = "none";
     if (cuaSoXacNhan != null && suKien.target == cuaSoXacNhan) cuaSoXacNhan.style.display = "none";
     if (modalSize != null && suKien.target == modalSize) modalSize.style.display = "none";
+    if (modalLichSu != null && suKien.target == modalLichSu) modalLichSu.style.display = "none";
 }
 
 let cacNutTabSize = document.querySelectorAll('.tab-size-btn'); let cacNoiDungTab = document.querySelectorAll('.tab-noi-dung');
 cacNutTabSize.forEach(nut => { nut.onclick = function() { cacNutTabSize.forEach(n => n.classList.remove('active')); cacNoiDungTab.forEach(nd => nd.style.display = 'none'); this.classList.add('active'); let idTab = this.getAttribute('data-tab'); if(document.getElementById(idTab)) document.getElementById(idTab).style.display = 'block'; } });
 
-
-// --- 5. LOGIC CHẠY BĂNG CHUYỀN QUẢNG CÁO, THÔNG BÁO ---
+// --- 3.3. BĂNG CHUYỀN VÀ TOAST ---
 let bangChuyen = document.getElementById('bang-chuyen'); let nutLui = document.getElementById('nut-lui'); let nutToi = document.getElementById('nut-toi');
 if (bangChuyen != null && nutLui != null && nutToi != null) {
     let viTriHienTai = 0; let tongSoSlide = 3; let dongHoTuDong; 
@@ -209,8 +265,7 @@ if (bangChuyen != null && nutLui != null && nutToi != null) {
 let khuVucThongBao = document.createElement('div'); khuVucThongBao.id = 'khu-vuc-thong-bao'; document.body.appendChild(khuVucThongBao);
 function hienThongBao(loiNhan, laLoi) { let thongBao = document.createElement('div'); thongBao.className = 'thong-bao-dep'; if (laLoi === true) thongBao.classList.add('loi'); thongBao.innerText = loiNhan; khuVucThongBao.appendChild(thongBao); setTimeout(function() { thongBao.remove(); }, 3000); }
 
-
-// --- 6. LOGIC TÀI KHOẢN KHÁCH HÀNG ---
+// --- 3.4. QUẢN LÝ TÀI KHOẢN VÀ VẼ LỊCH SỬ ---
 let boNhoSoHoKhau = localStorage.getItem('soHoKhauCuaCuaHang'); let danhSachTaiKhoan = [];
 if (boNhoSoHoKhau != null) danhSachTaiKhoan = JSON.parse(boNhoSoHoKhau);
 let nguoiDungHienTai = sessionStorage.getItem('aiDangDangNhap');
@@ -235,8 +290,33 @@ if (nutDangNhap != null) { nutDangNhap.onclick = function() { let tenTaiKhoan = 
 let nutDangXuat = document.getElementById('nut-dang-xuat');
 if (nutDangXuat != null) { nutDangXuat.onclick = function() { sessionStorage.removeItem('aiDangDangNhap'); nguoiDungHienTai = null; danhSachGioHang = []; localStorage.removeItem('gioHangCuaToi'); capNhatGiaoDienGioHang(); hienThongBao("Đã đăng xuất!", false); capNhatGiaoDienTaiKhoan(); if (document.getElementById('danh-sach-mua') != null) setTimeout(function() { window.location.href = "index.html"; }, 1500); }; }
 
+function veBangLichSu() {
+    let khLichSu = document.getElementById('danh-sach-lich-su');
+    if(!khLichSu) return;
+    let lichSuAll = JSON.parse(localStorage.getItem('lichSu_FashionShop') || "[]");
+    let lichSuCaNhan = lichSuAll.filter(dh => dh.nguoiMua === nguoiDungHienTai);
+    
+    if (lichSuCaNhan.length === 0) {
+        khLichSu.innerHTML = "<p style='text-align:center; color:#888; margin-top:30px;'>Bạn chưa có giao dịch nào.</p>"; return;
+    }
+    let html = "";
+    lichSuCaNhan.reverse().forEach((dh) => {
+        let spHtml = dh.danhSach.map(sp => `<li>${sp.ten} (SL: <b>${sp.soLuong}</b>)</li>`).join("");
+        html += `
+            <div style="border: 1px solid #ddd; padding: 15px; border-radius: 8px; margin-bottom: 15px; background: #fbf8f1;">
+                <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 10px;">
+                    <b>Mã Đơn: #FS${Math.floor(Math.random() * 9000) + 1000}</b><span style="color: #888; font-size: 13px;">${dh.thoiGian}</span>
+                </div>
+                <ul style="margin: 0; padding-left: 20px; font-size: 14px; color: #444; line-height: 1.8;">${spHtml}</ul>
+                <div style="text-align: right; font-weight: bold; color: #e30019; margin-top: 10px; font-size: 16px;">
+                    Tổng: ${dh.tongTien.toLocaleString('vi-VN')} đ
+                </div>
+            </div>`;
+    });
+    khLichSu.innerHTML = html;
+}
 
-// --- 7. LOGIC GIỎ HÀNG CHUYÊN NGHIỆP ---
+// --- 3.5. GIỎ HÀNG CHUYÊN NGHIỆP ---
 let khuVucDanhSachMua = document.getElementById('danh-sach-mua'); let danhSachGioHang = []; let boNhoCu = localStorage.getItem('gioHangCuaToi'); if (boNhoCu != null) danhSachGioHang = JSON.parse(boNhoCu);
 let tenMonCanXoa = "";
 
@@ -281,27 +361,38 @@ window.xoaMonHang = function(tenAoCanXoa) { tenMonCanXoa = tenAoCanXoa; if (cuaS
 if (nutHuyXoa != null) nutHuyXoa.onclick = function() { cuaSoXacNhan.style.display = "none"; };
 if (nutDongYXoa != null) { nutDongYXoa.onclick = function() { for (let i = 0; i < danhSachGioHang.length; i++) { if (danhSachGioHang[i].ten === tenMonCanXoa) { danhSachGioHang.splice(i, 1); break; } } localStorage.setItem('gioHangCuaToi', JSON.stringify(danhSachGioHang)); capNhatGiaoDienGioHang(); cuaSoXacNhan.style.display = "none"; hienThongBao("Đã xóa sản phẩm thành công!", false); }; }
 
+let nutThanhToan = document.getElementById('nut-thanh-toan');
+if (nutThanhToan != null) {
+    nutThanhToan.onclick = function() {
+        if (nguoiDungHienTai == null) return;
+        let coMuaMonNaoKhong = false; for (let i = 0; i < danhSachGioHang.length; i++) { if (danhSachGioHang[i].duocChon === true) coMuaMonNaoKhong = true; }
+        if (danhSachGioHang.length === 0) { hienThongBao("Giỏ hàng trống, hãy chọn đồ nhé!", true); } else if (coMuaMonNaoKhong === false) { hienThongBao("Bạn chưa tích chọn mua sản phẩm nào!", true); } else { window.location.href = "thanhtoan.html"; }
+    };
+}
 capNhatGiaoDienGioHang();
 
-
-// --- 8. LOGIC TRANG CHI TIẾT SẢN PHẨM ---
+// --- 3.6. TRANG CHI TIẾT SẢN PHẨM (SP.HTML) VÀ KIỂM TRA TỒN KHO TRƯỚC KHI THÊM GIỎ ---
 let spTen = document.getElementById('sp-ten');
 if (spTen != null) {
     let thamSoURL = new URLSearchParams(window.location.search); let tenNhanVao = decodeURIComponent(thamSoURL.get('ten') || "Sản phẩm"); let giaNhanVao = Number(thamSoURL.get('gia') || 0); let anhNhanVao = decodeURIComponent(thamSoURL.get('anh') || ""); 
     let spGia = document.getElementById('sp-gia'); spTen.innerText = tenNhanVao; 
     
+    // Lấy thông tin Tồn kho
+    let tenGoc = tenNhanVao.split(" (Size")[0];
+    let spHienTai = khoSanPham.find(sp => sp.ten === tenGoc);
+    let mucTonKho = spHienTai ? spHienTai.tonKhoHienTai : 0;
+
     if (spGia != null) {
-        let laHangGiam50 = false;
-        for(let i=0; i<khoSanPham.length; i++) {
-            if(khoSanPham[i].ten === tenNhanVao.split(" (Size")[0] && khoSanPham[i].giam50 === true) { laHangGiam50 = true; break; }
-        }
+        let mucGiamGia = spHienTai ? spHienTai.giamGia : 0;
+        let giaGocTien = spHienTai ? spHienTai.gia : giaNhanVao;
         
-        if (laHangGiam50) {
-            let giaGoc = giaNhanVao * 2;
-            spGia.innerHTML = `<div class="khung-gia" style="justify-content: flex-start;"><span style="color: #e30019;">${giaNhanVao.toLocaleString('vi-VN')} đ</span><span class="gia-goc">${giaGoc.toLocaleString('vi-VN')} đ</span><span class="nhan-giam-gia">-50%</span></div>`;
+        if (mucGiamGia > 0) {
+            spGia.innerHTML = `<div class="khung-gia" style="justify-content: flex-start;"><span style="color: #e30019;">${giaNhanVao.toLocaleString('vi-VN')} đ</span><span class="gia-goc">${giaGocTien.toLocaleString('vi-VN')} đ</span><span class="nhan-giam-gia">-${mucGiamGia}%</span></div>`;
         } else {
             spGia.innerText = giaNhanVao.toLocaleString('vi-VN') + " VNĐ";
         }
+        // Thêm thẻ Tồn kho màu xanh lá
+        spGia.insertAdjacentHTML('afterend', `<div style="margin-top: 15px; font-size: 15px; color: #333;">Trạng thái: <b style="color: #28a745;">Còn ${mucTonKho} sản phẩm</b> trong kho</div>`);
     }
 
     let maGoc = "ao1"; if (anhNhanVao.includes('/')) { let tenFile = anhNhanVao.split('/').pop(); maGoc = tenFile.split('.')[0]; }
@@ -335,7 +426,16 @@ if (spTen != null) {
     if (spNutMua) {
         spNutMua.onclick = function() {
             if (nguoiDungHienTai == null) { hienThongBao("Bạn phải Đăng nhập mới có thể mua hàng nhé!", true); if (cuaSoTaiKhoan != null) cuaSoTaiKhoan.style.display = "block"; return; }
-            let soLuongMuonMua = parseInt(oNhapSo.value) || 1; let tenGopLai = tenNhanVao + " (Size: " + sizeDaChon + ", Màu: " + mauDaChon + ")"; let hinhAnhHienTai = spAnhChinh.getAttribute('src'); let daCoRoi = false;
+            let soLuongMuonMua = parseInt(oNhapSo.value) || 1; 
+            
+            // LƯỚI BẢO VỆ: CẤM MUA QUÁ TỒN KHO
+            let slDangCoTrongGio = 0;
+            danhSachGioHang.forEach(mon => { if(mon.ten.split(" (Size")[0] === tenGoc) slDangCoTrongGio += mon.soLuong; });
+            if (slDangCoTrongGio + soLuongMuonMua > mucTonKho) {
+                hienThongBao(`Rất tiếc! Trong kho chỉ còn ${mucTonKho} chiếc. Hãy giảm số lượng.`, true); return;
+            }
+
+            let tenGopLai = tenNhanVao + " (Size: " + sizeDaChon + ", Màu: " + mauDaChon + ")"; let hinhAnhHienTai = spAnhChinh.getAttribute('src'); let daCoRoi = false;
             for (let j = 0; j < danhSachGioHang.length; j++) { if (danhSachGioHang[j].ten === tenGopLai) { danhSachGioHang[j].soLuong += soLuongMuonMua; daCoRoi = true; break; } }
             if (daCoRoi === false) { danhSachGioHang.push({ ten: tenGopLai, gia: giaNhanVao, soLuong: soLuongMuonMua, anh: hinhAnhHienTai, duocChon: true }); }
             localStorage.setItem('gioHangCuaToi', JSON.stringify(danhSachGioHang)); hienThongBao("Đã thêm " + soLuongMuonMua + " sản phẩm vào giỏ!", false); capNhatGiaoDienGioHang();
@@ -350,8 +450,7 @@ if (spTen != null) {
     }
 }
 
-
-// --- 9. TÌM KIẾM THÔNG MINH (TRÊN HEADER CHUNG) ---
+// --- 3.7. BỘ TÌM KIẾM ---
 let tatCaThanhTimKiem = document.querySelectorAll('input[placeholder="Tìm kiếm sản phẩm..."]');
 tatCaThanhTimKiem.forEach(thanh => { thanh.addEventListener('keypress', function(e) { if (e.key === 'Enter') { let tuKhoa = this.value.trim(); if (tuKhoa !== "") window.location.href = "timkiem.html?timkiem=" + encodeURIComponent(tuKhoa); } }); });
 
@@ -365,15 +464,9 @@ if (khuVucKetQua != null && tieuDeKetQua != null) {
             let tenSPThuong = khoSanPham[i].ten.toLowerCase(); let thoaMan = true;
             for (let j = 0; j < cacTuKhoa.length; j++) { if (!tenSPThuong.includes(cacTuKhoa[j])) { thoaMan = false; break; } }
             if (thoaMan) {
-                let giaHienThi = khoSanPham[i].giam50 ? khoSanPham[i].gia / 2 : khoSanPham[i].gia;
-                let giaHtml = khoSanPham[i].giam50 ? `
-                    <div class="khung-gia" style="justify-content: flex-start; margin-top: 5px;">
-                        <span style="color: #e30019; font-weight: bold;">${giaHienThi.toLocaleString('vi-VN')} đ</span>
-                        <span class="gia-goc">${khoSanPham[i].gia.toLocaleString('vi-VN')} đ</span>
-                        <span class="nhan-giam-gia">-50%</span>
-                    </div>
-                ` : `<p style="margin: 5px 0 0 0; color: #e30019; font-weight: bold;">${khoSanPham[i].gia.toLocaleString('vi-VN')} VNĐ</p>`;
-
+                let mucGiamGia = khoSanPham[i].giamGia || 0;
+                let giaHienThi = mucGiamGia > 0 ? khoSanPham[i].gia * (1 - mucGiamGia / 100) : khoSanPham[i].gia;
+                let giaHtml = mucGiamGia > 0 ? `<div class="khung-gia" style="justify-content: flex-start; margin-top: 5px;"><span style="color: #e30019; font-weight: bold;">${giaHienThi.toLocaleString('vi-VN')} đ</span><span class="gia-goc">${khoSanPham[i].gia.toLocaleString('vi-VN')} đ</span><span class="nhan-giam-gia">-${mucGiamGia}%</span></div>` : `<p style="margin: 5px 0 0 0; color: #e30019; font-weight: bold;">${khoSanPham[i].gia.toLocaleString('vi-VN')} VNĐ</p>`;
                 ketQuaHTML += `<div class="dong-sp-tim-kiem" onclick="window.location.href='sp.html?ten=${encodeURIComponent(khoSanPham[i].ten)}&gia=${giaHienThi}&anh=${encodeURIComponent(khoSanPham[i].anh)}'"><img src="${khoSanPham[i].anh}" alt="${khoSanPham[i].ten}"><div class="thong-tin"><h3>${khoSanPham[i].ten}</h3>${giaHtml}</div><button class="nut-xem-chi-tiet" onclick="event.stopPropagation(); window.location.href='sp.html?ten=${encodeURIComponent(khoSanPham[i].ten)}&gia=${giaHienThi}&anh=${encodeURIComponent(khoSanPham[i].anh)}'">Xem chi tiết</button></div>`;
             }
         }
@@ -381,16 +474,7 @@ if (khuVucKetQua != null && tieuDeKetQua != null) {
     } else { tieuDeKetQua.innerText = "Vui lòng nhập từ khóa để tìm kiếm!"; }
 }
 
-// --- 10. TRANG THANH TOÁN ---
-let nutThanhToanNgay = document.getElementById('nut-thanh-toan');
-if (nutThanhToanNgay != null && document.getElementById('danh-sach-mua') != null) {
-    nutThanhToanNgay.onclick = function() {
-        if (nguoiDungHienTai == null) return;
-        let coMuaMonNaoKhong = false; for (let i = 0; i < danhSachGioHang.length; i++) { if (danhSachGioHang[i].duocChon === true) coMuaMonNaoKhong = true; }
-        if (danhSachGioHang.length === 0) { hienThongBao("Giỏ hàng trống, hãy chọn đồ nhé!", true); } else if (coMuaMonNaoKhong === false) { hienThongBao("Bạn chưa tích chọn mua sản phẩm nào!", true); } else { window.location.href = "thanhtoan.html"; }
-    };
-}
-
+// --- 3.8. TRANG THANH TOÁN (TÍNH TOÁN VÀ TRỪ TỒN KHO) ---
 let khuVucDanhSachThanhToan = document.getElementById('danh-sach-thanh-toan'); let nutXacNhanDatHang = document.getElementById('nut-xac-nhan-dat-hang');
 if (khuVucDanhSachThanhToan != null) {
     if (nguoiDungHienTai == null) { hienThongBao("Vui lòng đăng nhập trước khi thanh toán!", true); setTimeout(function() { window.location.href = "index.html"; }, 1500); } else {
@@ -402,13 +486,48 @@ if (khuVucDanhSachThanhToan != null) {
             }
         }
         if (coMonDeThanhToan) { khuVucDanhSachThanhToan.innerHTML = htmlDonHang; document.getElementById('tong-tien-thanh-toan').innerText = tongTienThanhToan.toLocaleString('vi-VN'); } else { khuVucDanhSachThanhToan.innerHTML = "<p style='color: #888; text-align: center;'>Chưa có sản phẩm nào để thanh toán.</p>"; }
+        
         nutXacNhanDatHang.onclick = function() {
             let tenKH = document.getElementById('ten-khach-hang').value.trim(); let sdtKH = document.getElementById('sdt-khach-hang').value.trim(); let diaChiKH = document.getElementById('dia-chi-khach-hang').value.trim();
-            if (tenKH === "" || sdtKH === "" || diaChiKH === "") { hienThongBao("Vui lòng điền đầy đủ Tên, SĐT và Địa chỉ giao hàng (có dấu *)!", true); return; }
+            if (tenKH === "" || sdtKH === "" || diaChiKH === "") { hienThongBao("Vui lòng điền đầy đủ thông tin giao hàng (có dấu *)!", true); return; }
             if (!coMonDeThanhToan) { hienThongBao("Đơn hàng rỗng, không thể đặt hàng!", true); return; }
-            hienThongBao("🎉 Đặt hàng thành công! Cảm ơn " + tenKH + " đã mua sắm.", false);
-            let gioHangMoi = []; for (let i = 0; i < danhSachGioHang.length; i++) { if (danhSachGioHang[i].duocChon === false) gioHangMoi.push(danhSachGioHang[i]); }
-            localStorage.setItem('gioHangCuaToi', JSON.stringify(gioHangMoi)); setTimeout(function() { window.location.href = "index.html"; }, 2500);
+            
+            // XÁC NHẬN LẠI TỒN KHO LẦN CUỐI TRƯỚC KHI CHỐT ĐƠN (CHỐNG MUA QUÁ LỐ)
+            let duHang = true;
+            for (let mon of danhSachGioHang) {
+                if (mon.duocChon) {
+                    let tenG = mon.ten.split(" (Size")[0];
+                    let spCheck = khoSanPham.find(s => s.ten === tenG);
+                    if (spCheck && spCheck.tonKhoHienTai < mon.soLuong) {
+                        hienThongBao(`Lỗi: "${tenG}" chỉ còn ${spCheck.tonKhoHienTai} chiếc. Hãy giảm số lượng ở giỏ hàng!`, true); duHang = false; break;
+                    }
+                }
+            }
+            if(!duHang) return;
+
+            // XỬ LÝ TRỪ TỒN KHO & LƯU LỊCH SỬ
+            let danhSachDaMua = []; let gioHangMoi = []; 
+            for (let i = 0; i < danhSachGioHang.length; i++) { 
+                if (danhSachGioHang[i].duocChon === false) { gioHangMoi.push(danhSachGioHang[i]); } 
+                else {
+                    let tenG = danhSachGioHang[i].ten.split(" (Size")[0];
+                    hangDaBan[tenG] = (hangDaBan[tenG] || 0) + danhSachGioHang[i].soLuong; // Ghi sổ hàng đã bán
+                    danhSachDaMua.push(danhSachGioHang[i]); // Lưu vết lịch sử
+                }
+            }
+            
+            // Cập nhật Database ảo
+            localStorage.setItem('daBan_FashionShop', JSON.stringify(hangDaBan));
+            
+            // Lưu Lịch sử đơn hàng
+            let lichSuDonHang = JSON.parse(localStorage.getItem('lichSu_FashionShop') || "[]");
+            lichSuDonHang.push({ nguoiMua: nguoiDungHienTai, thoiGian: new Date().toLocaleString('vi-VN'), tongTien: tongTienThanhToan, danhSach: danhSachDaMua });
+            localStorage.setItem('lichSu_FashionShop', JSON.stringify(lichSuDonHang));
+
+            localStorage.setItem('gioHangCuaToi', JSON.stringify(gioHangMoi)); // Xóa đồ trong giỏ
+            
+            hienThongBao("🎉 Đặt hàng thành công! Đã lưu vào Lịch sử giao dịch.", false);
+            setTimeout(function() { window.location.href = "index.html"; }, 2500);
         };
     }
 }
