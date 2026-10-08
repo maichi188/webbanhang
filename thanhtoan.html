@@ -9,39 +9,53 @@
 <body>
     <!-- Header sẽ được JS tự động chèn vào đây -->
 
+    <nav class="cac-buoc" aria-label="Các bước đặt hàng">
+        <a href="giohang.html" class="buoc da-xong"><span class="buoc-so">✓</span><span>Giỏ hàng</span></a>
+        <span class="buoc-noi da-xong"></span>
+        <div class="buoc hien-tai"><span class="buoc-so">2</span><span>Thanh toán</span></div>
+        <span class="buoc-noi"></span>
+        <div class="buoc"><span class="buoc-so">3</span><span>Hoàn tất</span></div>
+    </nav>
+
     <main class="layout-thanh-toan">
         <div class="khung-thong-tin">
             <h2 class="tieu-de-form">📝 Thông Tin Giao Hàng</h2>
-            <input type="text" id="ten-khach-hang" class="form-nhap" placeholder="Họ và tên người nhận (*)">
-            <input type="text" id="sdt-khach-hang" class="form-nhap" placeholder="Số điện thoại (*)">
-            <input type="text" id="dia-chi-khach-hang" class="form-nhap" placeholder="Địa chỉ nhận hàng (Số nhà, Phường/Xã, Quận/Huyện, Tỉnh/TP) (*)">
-            <textarea class="form-nhap" rows="3" placeholder="Ghi chú thêm cho shipper (Không bắt buộc)"></textarea>
+            <input type="text" id="ten-khach-hang" class="form-nhap" placeholder="Họ và tên người nhận (*)" autocomplete="name" aria-label="Họ và tên người nhận">
+            <div class="loi-o"></div>
+            <input type="tel" id="sdt-khach-hang" class="form-nhap" placeholder="Số điện thoại (*)" autocomplete="tel" inputmode="tel" aria-label="Số điện thoại">
+            <div class="loi-o"></div>
+            <input type="text" id="dia-chi-khach-hang" class="form-nhap" placeholder="Địa chỉ nhận hàng (Số nhà, Phường/Xã, Quận/Huyện, Tỉnh/TP) (*)" autocomplete="street-address" aria-label="Địa chỉ nhận hàng">
+            <div class="loi-o"></div>
+            <textarea id="ghi-chu-khach-hang" class="form-nhap" rows="3" placeholder="Ghi chú thêm cho shipper (Không bắt buộc)" aria-label="Ghi chú cho shipper"></textarea>
 
-            <h2 class="tieu-de-form" style="margin-top: 30px;">💳 Phương Thức Thanh Toán</h2>
+            <h2 class="tieu-de-form tieu-de-form-thu-hai">💳 Phương Thức Thanh Toán</h2>
             <label class="phuong-thuc-tt">
-                <input type="radio" name="pttt" checked style="accent-color: #003366;"> 
+                <input type="radio" name="pttt" value="Thanh toán khi nhận hàng (COD)" checked> 
                 <b>Thanh toán khi nhận hàng (COD)</b>
             </label>
-            <label class="phuong-thuc-tt">
-                <input type="radio" name="pttt" style="accent-color: #003366;"> 
+            <label class="phuong-thuc-tt phuong-thuc-tat" id="the-chuyen-khoan">
+                <input type="radio" name="pttt" value="Chuyển khoản qua Ngân hàng (Mã QR)" disabled> 
                 <b>Chuyển khoản qua Ngân hàng (Mã QR)</b>
+                <span class="nhan-chua-ho-tro">Tạm thời chưa hỗ trợ</span>
             </label>
         </div>
 
         <div class="khung-don-hang">
             <h2 class="tieu-de-form">🛒 Đơn Hàng Của Bạn</h2>
             <div id="danh-sach-thanh-toan"></div>
-            <div style="display: flex; justify-content: space-between; margin-top: 20px; color: #555;">
+            <div class="dong-van-chuyen">
                 <span>Phí vận chuyển:</span>
-                <span>Miễn phí</span>
+                <b id="gia-tri-van-chuyen">Miễn phí</b>
             </div>
+            <div id="goi-y-freeship" class="goi-y-freeship"></div>
             <div class="dong-tong-tien">
                 <span>Tổng thanh toán:</span>
-                <span style="color: #e30019;"><span id="tong-tien-thanh-toan">0</span> đ</span>
+                <span class="so-tien-tong"><span id="tong-tien-thanh-toan">0</span> đ</span>
             </div>
             <button id="nut-xac-nhan-dat-hang">ĐẶT HÀNG NGAY</button>
-            <div style="text-align: center; margin-top: 15px;">
-                <a href="giohang.html" style="color: #3b5998; font-size: 14px; text-decoration: none;">← Quay lại giỏ hàng</a>
+            <div class="ghi-chu-bao-mat">🔒 Thông tin của bạn được bảo mật tuyệt đối</div>
+            <div class="lien-ket-quay-lai">
+                <a href="giohang.html">← Quay lại giỏ hàng</a>
             </div>
         </div>
     </main>

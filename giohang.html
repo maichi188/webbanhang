@@ -11,27 +11,34 @@
 
     <main>
         <div class="khu-vuc-thanh-toan">
-            <h2 class="tieu-de-gio-hang">GIỎ HÀNG CỦA BẠN</h2>
-            
-            <div class="thanh-tieu-de-gio">
-                <input type="checkbox" id="check-all" class="hop-checkbox" title="Chọn tất cả">
-                <span style="flex: 2; padding-left: 100px;">Sản phẩm</span>
-                <span style="flex: 1; text-align: center;">Đơn giá</span>
-                <span style="flex: 1; text-align: center;">Số lượng</span>
-                <span style="flex: 1; text-align: right;">Thành tiền</span>
-                <span style="flex: 0.5;"></span>
+            <h2 class="tieu-de-gio-hang">GIỎ HÀNG CỦA BẠN <span id="so-san-pham-gio" class="so-san-pham-gio"></span></h2>
+
+            <div id="thanh-freeship" class="thanh-freeship">
+                <div id="freeship-chu" class="freeship-chu"></div>
+                <div class="freeship-nen"><div id="freeship-tien" class="freeship-tien"></div></div>
+            </div>
+
+            <div class="thanh-tieu-de-gio gio-luoi">
+                <div class="gio-o-chon"><input type="checkbox" id="check-all" class="hop-checkbox" title="Chọn tất cả"></div>
+                <div><span class="chu-dai">Sản phẩm</span><span class="chu-ngan">Chọn tất cả</span></div>
+                <div class="gio-o-gia">Đơn giá</div>
+                <div class="gio-o-sl">Số lượng</div>
+                <div class="gio-o-tien">Thành tiền</div>
+                <div class="gio-o-xoa"></div>
             </div>
 
             <div id="danh-sach-mua"></div>
-            
-            <div class="tong-ket-gio">
-                <span style="font-size: 22px; font-weight: bold; color: #333;">TỔNG CỘNG:</span>
-                <span style="font-size: 26px; font-weight: bold; color: #e30019;"><span id="tong-tien">0</span> VNĐ</span>
-            </div>
-            
-            <div class="khu-vuc-nut-mua">
-                <a href="index.html" class="nut-quay-lai">🔙 Tiếp tục mua sắm</a>
-                <button id="nut-thanh-toan" class="nut-thanh-toan-moi">💳 Thanh toán ngay</button>
+
+            <div class="gio-thanh-thanh-toan">
+                <div class="tong-ket-gio">
+                    <span class="chu-tong">Tổng cộng <small id="so-mon-chon"></small></span>
+                    <span class="so-tong"><span id="tong-tien">0</span> VNĐ</span>
+                </div>
+
+                <div class="khu-vuc-nut-mua">
+                    <a href="index.html" class="nut-quay-lai">🔙 Tiếp tục mua sắm</a>
+                    <button id="nut-thanh-toan" class="nut-thanh-toan-moi">💳 Thanh toán ngay</button>
+                </div>
             </div>
         </div>
     </main>
